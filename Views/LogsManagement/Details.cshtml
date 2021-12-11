@@ -1,0 +1,42 @@
+﻿@model Url_Shortener_DatabaseExercise.log
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>log</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.short_url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.short_url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ip_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ip_address)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.log_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

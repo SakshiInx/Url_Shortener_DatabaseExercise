@@ -1,0 +1,61 @@
+﻿
+@model PagedList.IPagedList<Url_Shortener_DatabaseExercise.log>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Logs";
+}
+
+<h2>Index</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "LogsManagement", FormMethod.Get))
+{
+    <p>
+        Find by short Url: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Short Url", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            Ip Address
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.short_url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.time_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ip_address)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.log_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.log_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.log_id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+Page @(Model.PageCount <Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
